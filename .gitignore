@@ -33,3 +33,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### CS 61A ###
+**/**/ok
+**/**/.ok*
+**/**/*.ok
+**/**/tests/
