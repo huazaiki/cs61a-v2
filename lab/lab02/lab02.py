@@ -82,7 +82,11 @@ def multiple(a, b):
     >>> multiple(14, 21)
     42
     """
-    "*** YOUR CODE HERE ***"
+    i = 1
+    while True:
+        if i % a == 0 and i % b == 0:
+            return i
+        i += 1
 
 
 
@@ -112,5 +116,17 @@ def cycle(f1, f2, f3):
     >>> do_two_cycles(1)
     19
     """
-    "*** YOUR CODE HERE ***"
+    def g(condition):
+        if condition == 0:
+            return lambda x: x
+        elif condition == 1:
+            return lambda x: f1(x)
+        elif condition == 2:
+            return lambda x: f2(f1(x))
+        elif condition == 3:
+            return lambda x: f3(f2(f1(x)))
+        else:
+            condition -= 3
+            return lambda x: g(condition)(g(3)(x))
+    return g
 
