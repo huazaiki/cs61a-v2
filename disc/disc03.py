@@ -115,9 +115,36 @@ def sevens(n, k):
     2
     """
     def f(i, who, direction):
+        """
+        direction:
+            0: 逆时针
+            1: 顺时针
+        """
         if i == n:
             return who
-        "*** YOUR CODE HERE ***"
+        elif has_seven(i) or i % 7 == 0:
+            if direction == 1:
+                who = who - 1
+                if who == 0:
+                    who = k
+                return f(i + 1, who, 0)
+            else:
+                who = who + 1
+                if who == k + 1:
+                    who = 1
+                return f(i + 1, who, 1)
+        else:
+            if direction == 1:
+                who = who + 1
+                if who == k + 1:
+                    who = 1
+                return f(i + 1, who, 1)
+            else:
+                who = who - 1
+                if who == 0:
+                    who = k
+                return f(i + 1, who, 0)
+
     return f(1, 1, 1)
 
 def has_seven(n):
