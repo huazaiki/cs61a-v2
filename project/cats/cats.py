@@ -330,7 +330,17 @@ def report_progress(typed, source, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    d = {"id": user_id, "progress": 0}
+
+    for i in range(min(len(typed), len(source))):
+        if typed[i] != source[i]:
+            d['progress'] = i / len(source)
+            upload(d)
+            return d['progress']
+
+    d['progress'] = len(typed) / len(source)
+    upload(d)
+    return d['progress']
     # END PROBLEM 8
 
 
@@ -355,6 +365,9 @@ def time_per_word(words, timestamps_per_player):
     tpp = timestamps_per_player  # A shorter name (for convenience)
     # BEGIN PROBLEM 9
     times = []  # You may remove this line
+    for i in range(len(timestamps_per_player)):
+        times.append([timestamps_per_player[i][j] - timestamps_per_player[i][j - 1] for j in range(1, len(timestamps_per_player[i]))])
+
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
@@ -381,7 +394,20 @@ def fastest_words(words_and_times):
     player_indices = range(len(times))  # contains an *index* for each player
     word_indices = range(len(words))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    result = []
+    for _ in player_indices:
+        result.append([])
+
+    res_player_id = -1
+    for i in word_indices:  # 对第 i 个单词进行比较
+        minimum = float('inf')
+        for j in player_indices:    # 遍历各个人第 i 个单词的输入速度，比较
+            if times[j][i] < minimum:
+                minimum = times[j][i]
+                res_player_id = j
+        result[res_player_id].append(words[i])
+    return result
+
     # END PROBLEM 10
 
 
